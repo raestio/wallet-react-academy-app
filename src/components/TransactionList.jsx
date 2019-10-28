@@ -1,11 +1,11 @@
 import React from 'react';
 import Transaction from "./Transaction";
 
-const TransactionList = ({transactions}) => {
+const TransactionList = ({transactions, onDeleteTransactionClick}) => {
   return (
       <div>
         {
-          transactions.map(({label, amount}) => <Transaction label={label} amount={amount}/>)
+          transactions.map(({id, label, amount}) => <Transaction transactionId={id} label={label} amount={amount} onDeleteTransactionClick={onDeleteTransactionClick}/>)
         }
       </div>
   );

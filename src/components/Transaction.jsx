@@ -2,25 +2,60 @@ import React from 'react';
 import styled from "styled-components";
 
 const Container = styled.div`
+  background-color: #e6edec;
   display: flex;
-  justify-content: center;
   align-items: center;
+  margin: 2px;
+  justify-content: center;
 `;
 
 const StyledLabel = styled.div`
   font-size: 1.5rem;
 `;
 
-const StyledAmount = styled(StyledLabel)`
+const StyledAmount = styled.div`
+  font-size: 1.5rem;
   margin-left: 2.5rem;
   color: ${({isNegative}) => isNegative ? 'red' : 'green'};
 `;
 
-const Transaction = ({label, amount}) => (
-    <Container>
-      <StyledLabel>{label}</StyledLabel>
-      <StyledAmount isNegative={amount < 0}>{amount}</StyledAmount>
-    </Container>
-);
+const DeleteTransactionButtonContainer = styled.div`
+  position: absolute;
+  right: 0;
+  padding-right: 2px;
+`;
+
+const DeleteTransactionButtonStyled= styled.button`
+  padding: 3px 5px;
+  margin: 1px;
+  display: block;
+  overflow: hidden;
+  border-width: 0;
+  outline: none;
+  border-radius: 2px;
+  box-shadow: 0 1px 4px rgba(0, 0, 0, .3);
+  background-color: #00b7ff;
+  color: #ecf0f1;
+  transition: background-color .3s;
+  &:hover {  
+    background-color: #67ceef;
+  }
+`;
+
+
+
+const Transaction = ({transactionId, label, amount, onDeleteTransactionClick}) => {
+  const id = transactionId;
+
+  return (
+      <Container>
+        <StyledLabel>{label}</StyledLabel>
+        <StyledAmount isNegative={amount < 0}>{amount}</StyledAmount>
+        <DeleteTransactionButtonContainer>
+          <DeleteTransactionButtonStyled onClick={() => onDeleteTransactionClick(id)}>X</DeleteTransactionButtonStyled>
+        </DeleteTransactionButtonContainer>
+      </Container>
+  );
+};
 
 export default Transaction;
