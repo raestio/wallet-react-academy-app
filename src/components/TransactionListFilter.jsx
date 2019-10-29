@@ -24,11 +24,11 @@ const FilterButton = styled.button`
   }
 `;
 
-const TransactionListFilter = ({ onFilterAll, onFilterIn, onFilterOut }) => (
+const TransactionListFilter = ({ setFilter }) => (
     <ButtonGroup>
-      <FilterButton onClick={onFilterAll}>ALL</FilterButton>
-      <FilterButton onClick={onFilterIn}>IN</FilterButton>
-      <FilterButton onClick={onFilterOut}>OUT</FilterButton>
+      <FilterButton onClick={() => setFilter('ALL')}>ALL</FilterButton>
+      <FilterButton onClick={() => setFilter('IN')}>IN</FilterButton>
+      <FilterButton onClick={() => setFilter('OUT')}>OUT</FilterButton>
     </ButtonGroup>
 );
 

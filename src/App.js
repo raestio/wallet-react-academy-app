@@ -30,33 +30,36 @@ const Footer = styled.div`
   width: 100vw;
 `;
 
-let transactionsData = [];
 const App = () => {
-  const [transactions, setTransactions] = useState(transactionsData);
+  const [transactions, setTransactions] = useState([]);
+  const [filter, setFilter] = useState('ALL');
 
   const addNewTransaction = (newTransaction) => {
-    transactionsData.push(newTransaction);
-    setTransactions([...transactionsData]);
+    setTransactions([...transactions, newTransaction]);
   };
 
   const deleteTransaction = (transactionId) => {
-    transactionsData = transactionsData.filter(({id}) => id !== transactionId);
-    setTransactions(transactions.filter(t => transactionsData.includes(t)));
+    setTransactions(transactions.filter(({id}) => id !== transactionId));
   };
 
-  const filterAll = () => setTransactions([...transactionsData]);
-  const filterIn = () => setTransactions(transactionsData.filter(({amount}) => amount > 0));
-  const filterOut = () => setTransactions(transactionsData.filter(({amount}) => amount < 0));
+  const filterTransactions = () => {
+    switch (filter) {
+      case 'ALL': return transactions;
+      case 'IN': return transactions.filter(({ amount }) => amount > 0);
+      case 'OUT': return transactions.filter(({ amount }) => amount < 0);
+      default: return transactions;
+    }
+  };
 
   return (
       <Container>
 
         <HorizontalContainer>
-          <TransactionListFilter onFilterAll={filterAll} onFilterIn={filterIn} onFilterOut={filterOut}/>
+          <TransactionListFilter setFilter={setFilter}/>
           <Navigation/>
         </HorizontalContainer>
 
-        <TransactionList transactions={transactions} onDeleteTransactionClick={deleteTransaction}/>
+        <TransactionList transactions={filterTransactions()} onDeleteTransactionClick={deleteTransaction}/>
 
         <Pagination/>
 
