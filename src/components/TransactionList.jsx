@@ -1,11 +1,22 @@
 import React from 'react';
 import Transaction from "./Transaction";
 
-const TransactionList = ({transactions, onDeleteTransactionClick}) => {
+const TransactionList = ({transactions, onTransactionClick, onDeleteTransactionClick}) => {
   return (
       <div>
         {
-          transactions.map(({id, label, amount}) => <Transaction transactionId={id} label={label} amount={amount} onDeleteTransactionClick={onDeleteTransactionClick}/>)
+          transactions.map(({id, label, amount}) =>
+              <Transaction
+                key={id}
+                label={label}
+                amount={amount}
+                onDelete={(e) => {
+                  e.stopPropagation();
+                  onDeleteTransactionClick(id);
+                }}
+                onClick={() => onTransactionClick(id)}
+              />
+          )
         }
       </div>
   );

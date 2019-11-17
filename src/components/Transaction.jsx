@@ -7,6 +7,9 @@ const Container = styled.div`
   align-items: center;
   margin: 2px;
   justify-content: center;
+  &:hover {  
+    background-color: #67ceef;
+  }
 `;
 
 const StyledLabel = styled.div`
@@ -42,20 +45,14 @@ const DeleteTransactionButtonStyled= styled.button`
   }
 `;
 
-
-
-const Transaction = ({transactionId, label, amount, onDeleteTransactionClick}) => {
-  const id = transactionId;
-
-  return (
-      <Container>
+const Transaction = ({label, amount, onDelete, onClick}) => (
+      <Container onClick={onClick}>
         <StyledLabel>{label}</StyledLabel>
         <StyledAmount isNegative={amount < 0}>{amount}</StyledAmount>
         <DeleteTransactionButtonContainer>
-          <DeleteTransactionButtonStyled onClick={() => onDeleteTransactionClick(id)}>X</DeleteTransactionButtonStyled>
+          <DeleteTransactionButtonStyled onClick={onDelete}>X</DeleteTransactionButtonStyled>
         </DeleteTransactionButtonContainer>
       </Container>
-  );
-};
+);
 
 export default Transaction;
